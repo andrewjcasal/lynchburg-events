@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { Schema } from "@mui/icons-material";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -7,9 +8,35 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  Event: a
     .model({
-      content: a.string(),
+      content: a.string().required(),
+      cost: a.string().required(),
+      startTime: a.string().required(),
+      organizationId: a.id(),
+      organization: a.belongsTo("Organization", 'organizationId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  Organization: a
+    .model({
+      title: a.string().required(),
+      content: a.string().required(),
+      events: a.hasMany("Event", 'organizationId'),
+      tags: a.hasMany("OrganizationTag", 'organizationId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  Tag: a
+    .model({
+      content: a.string().required(),
+      organizations: a.hasMany("OrganizationTag", 'tagId'),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  OrganizationTag: a
+    .model({
+      organizationId: a.id().required(),
+      tagId: a.id().required(),
+      organization: a.belongsTo("Organization", 'organizationId'),
+      tag: a.belongsTo("Tag", 'tagId'),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 });
@@ -32,7 +59,7 @@ Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
 WORK IN THE FRONTEND CODE FILE.)
 
-Using JavaScript or Next.js React Server Components, Middleware, Server 
+Using JavaScript or Next.js React Server Components, Middleware, Server
 Actions or Pages Router? Review how to generate Data clients for those use
 cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
 =========================================================================*/
