@@ -1,5 +1,3 @@
-import { Schema } from "../../amplify/data/resource";
-
 export type Organization = {
   id: string;
   content: string;

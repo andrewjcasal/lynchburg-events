@@ -1,9 +1,10 @@
 import { Button, FormControl, FormLabel, Input } from "@mui/joy";
 
 import { Modal } from "./modal";
+import { Organization } from "../types";
 
 interface AddEventModalProps {
-  organization: any;
+  organization: Organization;
   currEvent: string;
   cost: string;
   startTime: string;

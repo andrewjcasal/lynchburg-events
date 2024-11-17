@@ -5,6 +5,7 @@ amplitude.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY as string, {
   autocapture: true,
 });
 
+// eslint-disable-next-line
 export const metadata: Metadata = {
   title: "My App",
   description: "My App is a...",

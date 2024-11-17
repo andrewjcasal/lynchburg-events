@@ -35,7 +35,7 @@ export default function Dashboard({
   organizations: initOrganizations,
   tags: initTags,
 }: DashboardProps) {
-  const [tags, setTags] = useState<Tag[]>(initTags);
+  const [tags] = useState<Tag[]>(initTags);
   const [organizations, setOrganizations] =
     useState<Organization[]>(initOrganizations);
   const [currOrg, setCurrOrg] = useState<string>("");

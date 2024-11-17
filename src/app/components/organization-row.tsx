@@ -22,7 +22,11 @@ type Event = {
 
 interface OrgEventsProps {
   organization: Organization;
-  user?: any;
+  user?: {
+    signInDetails?: {
+      loginId?: string;
+    };
+  };
   onDelete?: (id: string) => void;
 }
 

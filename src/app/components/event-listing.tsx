@@ -5,7 +5,11 @@ import { Event } from "../types";
 interface EventListingProps {
   event: Event;
   deleteEvent: (id: string) => void;
-  user: any;
+  user?: {
+    signInDetails?: {
+      loginId?: string;
+    };
+  };
 }
 
 export const EventListing = ({
