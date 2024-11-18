@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AmplitudeContextProvider from "./context/amplitude-context";
+import AmplitudeContextProvider from "./context/amplitude-context-provider";
 
 // eslint-disable-next-line
 export const metadata: Metadata = {
@@ -17,7 +17,6 @@ export default function RootLayout({
       <body>
         <AmplitudeContextProvider>
           <div id="root">{children}</div>
-          <script type="module" src="/src/main.tsx"></script>
         </AmplitudeContextProvider>
       </body>
     </html>

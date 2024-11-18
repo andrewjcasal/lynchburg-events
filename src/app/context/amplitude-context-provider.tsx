@@ -1,10 +1,9 @@
 "use client";
-import { useEffect, createContext } from "react";
+import { useEffect } from "react";
 import { init, track } from "@amplitude/analytics-browser";
+import { AmplitudeContext } from "./amplitude-context";
 
 const AMPLITUDE_API_KEY = process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY as string;
-
-export const AmplitudeContext = createContext({});
 
 interface AmplitudeContextProviderProps {
   children: React.ReactNode;

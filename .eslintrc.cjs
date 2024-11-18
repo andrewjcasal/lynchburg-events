@@ -4,7 +4,8 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    'next',
+    'next/core-web-vitals'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -15,5 +16,5 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "@typescript-eslint/no-explicit-any": "off"
-  },
+  }
 }
