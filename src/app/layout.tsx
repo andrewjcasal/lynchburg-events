@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import * as amplitude from "@amplitude/analytics-browser";
-
-amplitude.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY as string, {
-  autocapture: true,
-});
+import AmplitudeContextProvider from "./context/amplitude-context";
 
 // eslint-disable-next-line
 export const metadata: Metadata = {
@@ -19,8 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="root">{children}</div>
-        <script type="module" src="/src/main.tsx"></script>
+        <AmplitudeContextProvider>
+          <div id="root">{children}</div>
+          <script type="module" src="/src/main.tsx"></script>
+        </AmplitudeContextProvider>
       </body>
     </html>
   );
