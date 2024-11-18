@@ -11,6 +11,7 @@ frontend:
     baseDirectory: .next
     files:
       - '**/*'
+      - amplify_outputs.json
   cache:
     paths:
       - .npm/**/*
