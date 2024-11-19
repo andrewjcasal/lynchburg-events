@@ -18,9 +18,9 @@ import {
   Typography,
 } from "@mui/joy";
 import { Navbar } from "./navbar";
-import { Authenticator } from "@aws-amplify/ui-react";
 import { Organization, Tag } from "../types";
 import { MyTags } from "./my-tags";
+import { useAuthenticatorUser } from "../hooks/use-authenticator-user";
 
 interface DashboardProps {
   organizations: Organization[];
@@ -41,6 +41,7 @@ export default function Dashboard({
   const [currOrg, setCurrOrg] = useState<string>("");
   const [currTitle, setCurrTitle] = useState<string>("");
   const [checkboxes, setCheckboxes] = useState<Tag[]>([]);
+  const { isAdmin } = useAuthenticatorUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrOrg(e.target.value);
@@ -86,67 +87,63 @@ export default function Dashboard({
   };
 
   return (
-    <Authenticator>
-      {({ user }) => (
-        <main>
-          <Navbar />
-          <MyTags tags={tags} />
-          <Box
-            sx={{
-              pl: 2,
-              py: 2,
-              borderBottom: "1px solid",
-              borderColor: "divider",
-            }}
-          >
-            <Typography level="h2">My organizations</Typography>
-            <Typography level="title-lg">Add an organization</Typography>
-            <Stack direction="row" spacing={2}>
-              <FormControl>
-                <Input
-                  value={currTitle}
-                  placeholder="title"
-                  onChange={handleTitleChange}
-                />
-              </FormControl>
-              <FormControl>
-                <Input
-                  value={currOrg}
-                  placeholder="description"
-                  onChange={handleChange}
-                />
-              </FormControl>
-              {tags &&
-                tags.map((tag) => (
-                  <Checkbox
-                    key={tag.content}
-                    label={tag.content}
-                    onChange={(e) => handleCheckboxChange(e, tag)}
-                    color="primary"
-                  />
-                ))}
-
-              <Button onClick={createOrganization}>Save</Button>
-            </Stack>
-          </Box>
-          <List
-            sx={{
-              py: 0,
-              "--ListItem-paddingY": "0.75rem",
-              "--ListItem-paddingX": "1rem",
-            }}
-          >
-            {organizations.map((organization) => (
-              <OrganizationRow
-                key={organization.id}
-                organization={organization}
-                user={user}
-                onDelete={handleOrganizationDelete}
+    <main>
+      <Navbar />
+      <MyTags tags={tags} />
+      <Box
+        sx={{
+          pl: 2,
+          py: 2,
+          borderBottom: "1px solid",
+          borderColor: "divider",
+        }}
+      >
+        <Typography level="h2">My organizations</Typography>
+        <Typography level="title-lg">Add an organization</Typography>
+        <Stack direction="row" spacing={2}>
+          <FormControl>
+            <Input
+              value={currTitle}
+              placeholder="title"
+              onChange={handleTitleChange}
+            />
+          </FormControl>
+          <FormControl>
+            <Input
+              value={currOrg}
+              placeholder="description"
+              onChange={handleChange}
+            />
+          </FormControl>
+          {tags &&
+            tags.map((tag) => (
+              <Checkbox
+                key={tag.content}
+                label={tag.content}
+                onChange={(e) => handleCheckboxChange(e, tag)}
+                color="primary"
               />
             ))}
-          </List>
-        </main>
-      )}
-    </Authenticator>
+
+          <Button onClick={createOrganization}>Save</Button>
+        </Stack>
+      </Box>
+      <List
+        sx={{
+          py: 0,
+          "--ListItem-paddingY": "0.75rem",
+          "--ListItem-paddingX": "1rem",
+        }}
+      >
+        {organizations.map((organization) => (
+          <OrganizationRow
+            key={organization.id}
+            organization={organization}
+            onDelete={handleOrganizationDelete}
+            isAdmin={isAdmin}
+          />
+        ))}
+      </List>
+    </main>
   );
 }

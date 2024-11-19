@@ -1,10 +1,11 @@
 import { Box, Button, Stack } from "@mui/joy";
 
 const arr = [
-  { label: "Gaming", href: "gaming" },
-  { label: "Family Friendly", href: "family-friendly" },
-  { label: "Crafts", href: "crafts" },
-  { label: "Dancing", href: "dancing" },
+  { label: "Today", href: "/today" },
+  { label: "Gaming", href: "/category/gaming" },
+  { label: "Family Friendly", href: "/category/family-friendly" },
+  { label: "Crafts", href: "/category/crafts" },
+  { label: "Dancing", href: "/category/dancing" },
 ];
 
 interface NavbarProps {
@@ -36,20 +37,21 @@ export const Navbar = ({ currPage }: NavbarProps) => {
           display: { xs: "none", sm: "flex" },
         }}
       >
-        {arr.map((item) => (
-          <Button
-            key={item.label}
-            variant="plain"
-            color="neutral"
-            aria-pressed={currPage === item.href}
-            component="a"
-            href={`/category/${item.href}`}
-            size="sm"
-            sx={{ alignSelf: "center" }}
-          >
-            {item.label}
-          </Button>
-        ))}
+        {arr &&
+          arr.map((item) => (
+            <Button
+              key={item.label}
+              variant="plain"
+              color="neutral"
+              aria-pressed={currPage === item.href}
+              component="a"
+              href={item.href}
+              size="sm"
+              sx={{ alignSelf: "center" }}
+            >
+              {item.label}
+            </Button>
+          ))}
       </Stack>
     </Box>
   );

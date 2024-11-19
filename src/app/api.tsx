@@ -23,6 +23,13 @@ interface getOrganizationsByTagProp {
   content: string;
 }
 
+export const getEvents = async () => {
+  const { data: events } = await publicClient.models.Event.list({
+    selectionSet: ["content", "cost", "organization.title", "startTime", "id"],
+  });
+  return events;
+};
+
 export const getOrganizationsByTag = async ({
   content,
 }: getOrganizationsByTagProp) => {

@@ -1,21 +1,18 @@
 import { Box, Card, Typography } from "@mui/joy";
 import { OptionsDropdown } from "./options-dropdown";
 import { Event } from "../types";
+import dayjs from "dayjs";
 
 interface EventListingProps {
   event: Event;
   deleteEvent: (id: string) => void;
-  user?: {
-    signInDetails?: {
-      loginId?: string;
-    };
-  };
+  isAdmin?: boolean;
 }
 
 export const EventListing = ({
   event,
   deleteEvent,
-  user,
+  isAdmin,
 }: EventListingProps) => {
   return (
     <Card key={event.id} sx={{ width: 320, p: 1 }} size="md">
@@ -24,11 +21,11 @@ export const EventListing = ({
           <Typography level="title-sm">
             {event.content} - {event.cost}
           </Typography>
-          <Typography level="body-xs">{event.startTime}</Typography>
+          <Typography level="body-xs">
+            {dayjs(event.startTime).format("MMM D, YYYY h:mma")}
+          </Typography>
         </Box>
-        {user?.signInDetails?.loginId === "andrewjcasal+1@gmail.com" && (
-          <OptionsDropdown deleteEvent={deleteEvent} id={event.id} />
-        )}
+        {isAdmin && <OptionsDropdown deleteEvent={deleteEvent} id={event.id} />}
       </Box>
     </Card>
   );

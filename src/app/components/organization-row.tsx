@@ -22,11 +22,7 @@ type Event = {
 
 interface OrgEventsProps {
   organization: Organization;
-  user?: {
-    signInDetails?: {
-      loginId?: string;
-    };
-  };
+  isAdmin?: boolean;
   onDelete?: (id: string) => void;
 }
 
@@ -34,8 +30,8 @@ const client = generateClient<Schema>();
 
 export const OrganizationRow = ({
   organization,
-  user,
   onDelete,
+  isAdmin,
 }: OrgEventsProps) => {
   const [currEvent, setCurrEvent] = useState<string>("");
   const [cost, setCost] = useState<string>("");
@@ -43,16 +39,16 @@ export const OrganizationRow = ({
   const [events, setEvents] = useState<Event[]>(organization.events);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.name) {
+  const handleChange = (name: string, value: string) => {
+    switch (name) {
       case "currEvent":
-        setCurrEvent(e.target.value);
+        setCurrEvent(value);
         break;
       case "cost":
-        setCost(e.target.value);
+        setCost(value);
         break;
       case "startTime":
-        setStartTime(e.target.value);
+        setStartTime(value);
         break;
     }
   };
@@ -86,7 +82,7 @@ export const OrganizationRow = ({
           <Typography level="title-md" sx={{ mt: 2, mb: 2 }}>
             {organization.content}
 
-            {user?.signInDetails?.loginId === "andrewjcasal+1@gmail.com" && (
+            {isAdmin && (
               <OptionsDropdown
                 id={organization.id}
                 deleteEvent={() => onDelete && onDelete(organization.id)}
@@ -111,10 +107,10 @@ export const OrganizationRow = ({
                   key={event.id}
                   event={event}
                   deleteEvent={deleteEvent}
-                  user={user}
+                  isAdmin={isAdmin}
                 />
               ))}
-            {user?.signInDetails?.loginId === "andrewjcasal+1@gmail.com" && (
+            {isAdmin && (
               <Card>
                 <AspectRatio
                   ratio="1"
@@ -130,7 +126,7 @@ export const OrganizationRow = ({
                   currEvent={currEvent}
                   cost={cost}
                   startTime={startTime}
-                  handleChange={handleChange}
+                  onChange={handleChange}
                   createEvent={createEvent}
                   isModalOpen={isModalOpen}
                   setIsModalOpen={setIsModalOpen}

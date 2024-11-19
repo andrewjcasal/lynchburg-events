@@ -2,9 +2,9 @@ import { List } from "@mui/joy";
 import { Amplify } from "aws-amplify";
 
 import { getOrganizationsByTag } from "../../api";
-import { Navbar } from "../../components/navbar";
 import { OrganizationRow } from "../../components/organization-row";
 import outputs from "../../../../amplify_outputs.json";
+import { Layout } from "../../components/layout";
 
 Amplify.configure(outputs);
 
@@ -17,8 +17,7 @@ export default async function Page({ params }: PageProps) {
   const slug = (await params).slug[0];
   const organizations = await getOrganizationsByTag({ content: slug });
   return (
-    <>
-      <Navbar currPage={slug} />
+    <Layout>
       <List
         sx={{
           py: 0,
@@ -37,6 +36,6 @@ export default async function Page({ params }: PageProps) {
             ))}
         </>
       </List>
-    </>
+    </Layout>
   );
 }
