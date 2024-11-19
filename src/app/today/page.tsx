@@ -1,12 +1,12 @@
 import { getEvents } from "../api";
+import { Container } from "../components/container";
 import { VerticalEventListing } from "../components/vertical-event-listing";
-import { Layout } from "../components/layout";
 import { List } from "@mui/joy";
 
 export default async function Page() {
   const events = await getEvents();
   return (
-    <Layout>
+    <Container>
       <List>
         {events
           .filter((e) => e)
@@ -14,6 +14,6 @@ export default async function Page() {
             <VerticalEventListing key={event.id} event={event} />
           ))}
       </List>
-    </Layout>
+    </Container>
   );
 }

@@ -14,7 +14,8 @@ export const VerticalEventListing = ({ event }: VerticalEventListingProps) => {
         <div>
           <Typography level="title-sm">{event.content}</Typography>
           <Typography level="body-sm">
-            {dayjs(event.startTime).format("MMM D, YYYY h:mma")} | ${event.cost}
+            {dayjs(event.startTime).format("MMM D, YYYY h:mma")} |{" "}
+            {Number(event.cost) !== 0 ? `$${event.cost}` : "FREE"}
           </Typography>
         </div>
       </ListItem>

@@ -4,7 +4,7 @@ import { Amplify } from "aws-amplify";
 import { getOrganizationsByTag } from "../../api";
 import { OrganizationRow } from "../../components/organization-row";
 import outputs from "../../../../amplify_outputs.json";
-import { Layout } from "../../components/layout";
+import { Container } from "../../components/container";
 
 Amplify.configure(outputs);
 
@@ -17,7 +17,7 @@ export default async function Page({ params }: PageProps) {
   const slug = (await params).slug[0];
   const organizations = await getOrganizationsByTag({ content: slug });
   return (
-    <Layout>
+    <Container>
       <List
         sx={{
           py: 0,
@@ -36,6 +36,6 @@ export default async function Page({ params }: PageProps) {
             ))}
         </>
       </List>
-    </Layout>
+    </Container>
   );
 }

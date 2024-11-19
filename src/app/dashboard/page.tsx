@@ -2,7 +2,7 @@
 
 import { getOrganizations, getTags } from "../api";
 import Dashboard from "../components/dashboard";
-import { AuthenticatorProvider } from "../context/authenticator-context";
+import { AuthenticatorProvider } from "../context/authenticator-context-provider";
 
 export default async function Page() {
   const organizations = await getOrganizations();

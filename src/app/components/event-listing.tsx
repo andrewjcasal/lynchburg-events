@@ -19,7 +19,8 @@ export const EventListing = ({
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Box sx={{ flex: 1 }}>
           <Typography level="title-sm">
-            {event.content} - {event.cost}
+            {event.content} -{" "}
+            {Number(event.cost) !== 0 ? `$${event.cost}` : "FREE"}
           </Typography>
           <Typography level="body-xs">
             {dayjs(event.startTime).format("MMM D, YYYY h:mma")}

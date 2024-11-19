@@ -4,11 +4,11 @@ import { LeftNav } from "./left-nav";
 import { Navbar } from "./navbar";
 import { RightNav } from "./right-nav";
 
-interface LayoutProps {
+interface ContainerProps {
   children: ReactNode;
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Container = ({ children }: ContainerProps) => {
   return (
     <CssVarsProvider>
       <CssBaseline />
